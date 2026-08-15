@@ -7,6 +7,11 @@ rgs = {
     name     = "rg-icu-dev1"
     location = "centralindia"
   }
+
+  rg3 = {
+    name     = "rg-icu-dev2"
+    location = "centralindia"
+  }
 }
 
 vnets = {
