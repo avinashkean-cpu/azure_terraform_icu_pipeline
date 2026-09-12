@@ -1,0 +1,35 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: 'latest'
+
+- task: AzureCLI@2
+  displayName: 'Azure Login'
+  inputs:
+    azureSubscription: 'mithila service connection'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      az account show
+
+- script: |
+    terraform init
+  displayName: 'Terraform Init'
+  workingDirectory: terraform
+
+- script: |
+    terraform validate
+  displayName: 'Terraform Validate'
+  workingDirectory: terraform
+
+- script: |
+    terraform plan -out=tfplan
+  displayName: 'Terraform Plan'
+  workingDirectory: terraform
